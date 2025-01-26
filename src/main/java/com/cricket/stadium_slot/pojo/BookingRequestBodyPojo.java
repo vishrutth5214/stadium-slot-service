@@ -1,18 +1,14 @@
 package com.cricket.stadium_slot.pojo;
-
-import java.util.List;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class StadiumSlotPojoISC {
-        private int id;
-        boolean available;
-        SlotPojo slot;
-        StadiumPojo stadium;
-        
+public class BookingRequestBodyPojo {
+
+	int stadiumId;
+	LocalDate date;
 }

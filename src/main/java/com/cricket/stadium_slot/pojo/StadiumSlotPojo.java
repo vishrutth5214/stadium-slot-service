@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class StadiumSlotPojoISC {
-        private int id;
-        boolean available;
-        SlotPojo slot;
-        StadiumPojo stadium;
-        
+public class StadiumSlotPojo {
+
+	
+    int stadiumId;
+    List<PojoSlotStadium> slots;
 }
