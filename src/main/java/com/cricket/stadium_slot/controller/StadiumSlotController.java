@@ -21,10 +21,11 @@ import reactor.core.publisher.Mono;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/stadium-slot")
 public class StadiumSlotController {
@@ -44,7 +45,6 @@ public class StadiumSlotController {
     
     
     @GetMapping("/isc/{sid}")
-    @CircuitBreaker(name = "ciremp", fallbackMethod = "fallBackStadium")
 	public ResponseEntity<StadiumSlotPojoISC> getStadiumSlot(@PathVariable("sid") int id){
 		RestClient restClient = RestClient.create();
 		SlotPojo slot = restClient
@@ -69,17 +69,14 @@ public class StadiumSlotController {
 		}
     
 
-    public ResponseEntity<StadiumSlotPojoISC> fallBackStadium(){
-    	return null;
-    }
+
     
     @GetMapping("/stadium/{stadiumId}")
     public Optional<StadiumSlot> getSlotsByStadiumId(@PathVariable int stadiumId) {
         return service.getById(stadiumId);
     }
-    @GetMapping("/stadiumslot")
-    public ResponseEntity<StadiumSlotPojo> getByStadiumId(@RequestBody BookingRequestBodyPojo bookingRequestBodyPojo){
-    	int stadiumId=bookingRequestBodyPojo.getStadiumId();
+    @GetMapping("/stadiumslot/{stadiumId}/{date}")
+    public ResponseEntity<StadiumSlotPojo> getByStadiumId(@PathVariable int stadiumId,@PathVariable LocalDate date){
     	List<StadiumSlot> stads = service.getByStadiumId(stadiumId).orElse(null);
     	StadiumSlotPojo stadiumSlotPojo= new StadiumSlotPojo();
     	StadiumSlotPojo stadiumSlotPojoFinal= new StadiumSlotPojo();
@@ -117,7 +114,7 @@ public class StadiumSlotController {
         // Assuming BookingPojo is a defined class
         Mono<List<BookingPojo>> bookingsMono = webClient
                 .get()
-                .uri("http://localhost:1721/bookings")
+                .uri("http://localhost:1721/bookings/"+stadiumId+"/"+date)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<BookingPojo>>() {});
 

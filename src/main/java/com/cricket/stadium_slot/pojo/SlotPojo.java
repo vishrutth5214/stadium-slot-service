@@ -1,6 +1,6 @@
 package com.cricket.stadium_slot.pojo;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class SlotPojo {
 	
 	    private int id;
-	    private LocalDateTime startTime;
-	    private LocalDateTime endTime;
+	    private LocalTime startTime;
+	    private LocalTime endTime;
 }
