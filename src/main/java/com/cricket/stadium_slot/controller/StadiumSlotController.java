@@ -96,21 +96,9 @@ public class StadiumSlotController {
 				.body(SlotPojo.class);
 		    ss.setSlot(slot);
 		    slots.add(ss);
-		   
-//		    stadiumSlotPojo.setId(row.getId());
-//		    stadiumSlotPojo.setStadiumId(row.getStadiumId());
-//		    stadiumSlotPojo.setSlot(slot);
     	}
         stadiumSlotPojo.setSlots(slots);
-//        RestClient restClient = RestClient.create();
-//		List<BookingPojo> bookings = restClient
-//				.get()
-//				.uri("http://localhost:1721/bookings")
-//				.retrieve()
-//				.body(List.class);
-//		
         WebClient webClient = WebClient.create();
-
         // Assuming BookingPojo is a defined class
         Mono<List<BookingPojo>> bookingsMono = webClient
                 .get()
